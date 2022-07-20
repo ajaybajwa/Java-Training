@@ -13,8 +13,6 @@ public class Fibonacci
     	
     	int[] arr = new int[n];
     	
-    	
-    	
     	for (int i = 0; i<n;i++) {
     		if (i<=1) {
     			arr[i] = i;
