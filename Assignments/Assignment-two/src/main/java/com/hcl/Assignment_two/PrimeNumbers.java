@@ -1,11 +1,11 @@
 package com.hcl.Assignment_two;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class PrimeNumbers {
 
 	public static void main(String[] args) {
+		
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter no. of prime numbers you want");
 		int n = scanner.nextInt();
