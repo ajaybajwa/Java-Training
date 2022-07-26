@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.hcl</groupId>
-  <artifactId>Assignment-five</artifactId>
+  <artifactId>Assignments</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>Assignment-five</name>
+  <name>Assignments</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 

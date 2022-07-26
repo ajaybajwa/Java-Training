@@ -1,17 +1,12 @@
 package com.hcl.assignment_five;
 
-import java.util.Iterator;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
-import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
-
-import javax.xml.transform.Source;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +25,7 @@ public class Employee {
 	int salary;
 
 	public static void main(String[] args) {
+
 		List<Employee> list = new ArrayList<>();
 
 		list.add(new Employee(1, "John", 28, "Male", "IT", 2010, 80000));
@@ -40,34 +36,25 @@ public class Employee {
 		list.add(new Employee(6, "Karen", 30, "Female", "Maintenance", 2018, 60000));
 
 		// Number of males and females in organization
-		List<Employee> mList = list.stream().filter(e -> e.getGender().equals("Male"))// get Male gender objects
-				.collect(Collectors.toList());// collect objects to create a list
-		System.out.println("No. of males in the organization is :" + mList.size());
-
-		List<Employee> fList = list.stream().filter(e -> e.getGender().equals("Female"))// get Female gender objects
-				.collect(Collectors.toList());// collect objects to create a list
-		System.out.println("No. of females in the organization is :" + fList.size());
+		Map<String, Long> genderCountMap = list.stream()
+				.collect(Collectors.groupingBy(e -> e.getGender(), Collectors.counting()));
+		System.out.println("No. of males and females in the organization: " + genderCountMap);
 
 		// Average age of males and females
-		double mAvg = mList.stream().collect(Collectors.averagingInt(e -> e.getAge()));
-		double fAvg = fList.stream().collect(Collectors.averagingInt(e -> e.getAge()));
-
-		System.out.println("Average age of males: " + mAvg + "\nAverage age of females: " + fAvg);
+		Map<String, Double> avgAgeByGender = list.stream()
+				.collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingInt(Employee::getAge)));
+		System.out.println("Average age by gender: " + avgAgeByGender);
 
 		// Highest paid employee
 		Employee maxSalEmp = list.stream().max(Comparator.comparing(e -> e.getSalary())).get();
 		System.out.println("Highest paid employee is: " + maxSalEmp.getName() + ", $" + maxSalEmp.getSalary());
 
 		// Employees who joined after 2015
-		List<Employee> after2015EmpList = list.stream().filter(e -> e.getYearOfJoining() > 2015)
-				.collect(Collectors.toList());
-		Iterator<Employee> itr = after2015EmpList.iterator();
-		while (itr.hasNext()) {
-			System.out.println("Employees joined after 2015 are: " + itr.next().getName());
-		}
-
-		List<String> after2015Names = after2015EmpList.stream().map(e -> e.getName()).collect(Collectors.toList());
-		System.out.println("Employees joined after 2015 are: " + after2015Names);
+		System.out.println("Employees who joined after 2015: ");
+		list.stream().filter(e->e.getYearOfJoining() > 2015).map(e->e.getName()).forEach(System.out::println);
+		
+		/*List<String> after2015EmpList = list.stream().filter(e -> e.getYearOfJoining() > 2015).map(e->e.getName()).collect(Collectors.toList());
+		System.out.println("Employees who joined after 2015 are: "+after2015EmpList);*/
 
 		// Senior most employee
 		Employee seniorEmployee = list.stream().min(Comparator.comparing(e -> e.getYearOfJoining())).get();
@@ -81,9 +68,7 @@ public class Employee {
 		// Number of males and females in Maintenance department
 		Map<String, Long> maintGenderCount = list.stream().filter(e -> e.getDept().equals("Maintenance"))
 				.collect(Collectors.groupingBy(g -> g.getGender(), TreeMap::new, Collectors.counting()));
-		for (String s : maintGenderCount.keySet()) {
-			System.out.println("Males and females in maintenace dept: " + s + ":" + maintGenderCount.get(s));
-		}
+		maintGenderCount.forEach((gender,count) -> System.out.println("Males & Females in Maint. Dept.: " +gender+" : "+count));
 
 		// Average salary of male and female employees
 		Map<String, Double> avgSalByGender = list.stream().collect(
@@ -92,7 +77,7 @@ public class Employee {
 
 		// Employees under 30 and employees over 25
 		List<Employee> under30Employees = list.stream().filter(e -> e.getAge() <= 30).collect(Collectors.toList());
-		List<Employee> over25Employees = list.stream().filter(e -> e.getAge() > 30).collect(Collectors.toList());
+		List<Employee> over25Employees = list.stream().filter(e -> e.getAge() > 25).collect(Collectors.toList());
 		System.out.println("Employees under 30: " + under30Employees);
 		System.out.println("Employees over 25: " + over25Employees);
 
