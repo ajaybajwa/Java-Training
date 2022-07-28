@@ -1,4 +1,4 @@
-package com.hcl.Assignment_five;
+package com.hcl;
 
 import static org.junit.Assert.assertTrue;
 
