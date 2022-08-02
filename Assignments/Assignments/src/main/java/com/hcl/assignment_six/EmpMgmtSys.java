@@ -1,4 +1,4 @@
-package cm.hcl.assignement_six;
+package com.hcl.assignment_six;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -16,25 +16,30 @@ public class EmpMgmtSys {
 
 	public void showOptions() throws SQLException {
 
-		System.out.println("Enter Option: \n1. To insert new employees.\n2. To view all employees."
+		System.out.println("\nEnter option number: \n1. To insert new employees.\n2. To view all employees."
 				+ "\n3. To update employee details.\n4. To delete an employee.\n5. To view employee by ID.");
 
 		int selection = s.nextInt();
 
 		if (selection == 1) {
 			insert();
+			showOptions();
 		}
 		if (selection == 2) {
 			viewAll();
+			showOptions();
 		}
 		if (selection == 3) {
 			update();
+			showOptions();
 		}
 		if (selection == 4) {
 			delete();
+			showOptions();
 		}
 		if (selection == 5) {
 			view();
+			showOptions();
 		}
 		s.close();
 	}
@@ -78,13 +83,18 @@ public class EmpMgmtSys {
 		System.out.println("Employee Deleted");
 	}
 
-	public void view() throws SQLException {
+	public void view() {
 		System.out.println("Enter ID of employee to view details.");
-		PreparedStatement ps2 = con.prepareStatement("Select * from employees where id = " + s.nextInt());
-		ResultSet rs = ps2.executeQuery();
-		while (rs.next()) {
-			System.out.println("" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3));
+		try {
+			PreparedStatement ps2 = con.prepareStatement("Select * from employees where id = " + s.nextInt());
+			ResultSet rs = ps2.executeQuery();
+			while (rs.next()) {
+				System.out.println("" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3));
+			}
+		} catch (Exception e) {
+			System.out.println("No employee found.");
 		}
+
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
