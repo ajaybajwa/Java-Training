@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.hcl</groupId>
-	<artifactId>MvcJdbc</artifactId>
+	<artifactId>MvcJdbc-Assignment-7</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -52,7 +52,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>MvcJdbc</finalName>
+		<finalName>MvcJdbc-Assignment-7</finalName>
 		<pluginManagement>
 			<!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
 			<plugins>
