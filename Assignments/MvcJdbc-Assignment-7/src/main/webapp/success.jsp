@@ -11,12 +11,11 @@
      out is an implicit object in jsp 
  -->
 <%
-        User u=(User)request.getAttribute("abc");
+User u=(User)request.getAttribute("abc");
         out.println("<h1 style=color:blue>Welcome "+u.getUsername()+"</h1>");
         /*if (u.getUserType().equals("admin")){
         	
         }*/
-
 %>
 </body>
 </html>
